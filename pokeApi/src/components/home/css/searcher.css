@@ -1,0 +1,77 @@
+
+.searcher-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    padding: 15px;
+    background: rgba(173, 170, 170, 0.28); 
+    border: 3px solid #ffcb05; 
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); 
+    backdrop-filter: blur(5px); 
+  }
+  
+
+  .searcher-input {
+    width: 280px;
+    padding: 12px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #2a75bb; 
+    border: none;
+    border-radius: 20px 0 0 20px; 
+    outline: none;
+    background: #f4f4f4; 
+    box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.5), inset -4px -4px 8px rgba(255, 255, 255, 0.7);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .searcher-input:focus {
+    background: #fff;
+    box-shadow: inset 4px 4px 8px rgba(238, 21, 21, 0.5), inset -4px -4px 8px rgba(255, 255, 255, 0.7); 
+  }
+  
+  
+  .searcher-button {
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background: #ee1515; 
+    border: none;
+    border-radius: 0 20px 20px 0; 
+    cursor: pointer;
+    box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.5), inset -4px -4px 8px rgba(255, 255, 255, 0.7); 
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .searcher-button:hover {
+    background: #d90404;
+    box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.6), inset -5px -5px 10px rgba(255, 255, 255, 0.6); 
+  }
+  
+  .searcher-button:active {
+    background: #b50000; 
+    box-shadow: inset 6px 6px 12px rgba(0, 0, 0, 0.7), inset -6px -6px 12px rgba(255, 255, 255, 0.4); 
+  }
+  
+ 
+  @media (max-width: 768px) {
+    .searcher-container {
+      flex-direction: column;
+      padding: 10px;
+    }
+  
+    .searcher-input {
+      width: 100%;
+      margin-bottom: 10px;
+      border-radius: 20px; 
+    }
+  
+    .searcher-button {
+      width: 100%;
+      border-radius: 20px; 
+    }
+  }
+  
