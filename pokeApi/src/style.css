@@ -1,0 +1,54 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; 
+}
+
+
+body {
+  font-family: Arial, sans-serif; 
+  background-color: #f0f0f0;
+  background-image: url('./assets/images/hola3.webp'); 
+  background-size: cover;
+  background-position: center center; 
+  background-attachment: fixed; 
+  color: #333; 
+  line-height: 1.6; 
+  min-height: 100vh; 
+  padding: 20px; 
+  overflow: scroll; 
+}
+
+
+ul, ol {
+  list-style-position: inside; 
+  padding-left: 20px; 
+}
+
+li {
+  margin-bottom: 10px; 
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Helvetica', sans-serif; 
+  font-weight: bold;
+}
+
+
+a {
+  text-decoration: none; 
+  color: #007BFF; 
+}
+
+a:hover {
+  text-decoration: underline; 
+  color: #0056b3;
+}
+
+
+
+::-webkit-scrollbar {
+  display: none;
+}
