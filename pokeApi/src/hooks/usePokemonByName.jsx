@@ -8,6 +8,12 @@ const usePokemonByName = (pokemonName) => {
   useEffect(() => {
     if (!pokemonName) return;
 
+    const cleanName = pokemonName.replace(/[^a-zA-Z0-9]/g, ''); 
+    if (!cleanName) {
+      setError('Bien intentado pequeño padawan');
+      return;
+    }
+
     let isMounted = true;
 
     const fetchPokemon = async () => {
@@ -16,7 +22,7 @@ const usePokemonByName = (pokemonName) => {
       setPokemonData(null);
 
       try {
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`);
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${cleanName.toLowerCase()}`);
         if (!response.ok) {
           if (response.status === 404) {
             throw new Error('Pokémon no encontrado');

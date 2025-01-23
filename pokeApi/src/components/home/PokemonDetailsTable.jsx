@@ -3,9 +3,6 @@ import "./css/pokemonDetailsTable.css";
 
 const PokemonDetailsTable = ({ pokemonData }) => {
   const [moveDetails, setMoveDetails] = useState({});
-  const [showAllMoves, setShowAllMoves] = useState(false); 
-  const [moveLearnLevels, setMoveLearnLevels] = useState({});
-  const [flippedMoves, setFlippedMoves] = useState([]);
 
   useEffect(() => {
     const fetchMoveDetails = async () => {
@@ -27,46 +24,10 @@ const PokemonDetailsTable = ({ pokemonData }) => {
       setMoveDetails(details);
     };
 
-    const fetchMoveLearnLevels = async () => {
-      const levels = {};
-
-      for (let move of pokemonData.moves) {
-        const moveName = move.move.name;
-        const response = await fetch(
-          `https://pokeapi.co/api/v2/move/${moveName}`
-        );
-        const data = await response.json();
-        const levelUp = data.learned_by_pokemon.find(
-          (pokemon) => pokemon.name === pokemonData.name
-        );
-
-        if (levelUp) {
-          levels[moveName] = levelUp.level;
-        } else {
-          levels[moveName] = "Desconocido";
-        }
-      }
-
-      setMoveLearnLevels(levels);
-    };
-
     if (pokemonData.moves.length > 0) {
       fetchMoveDetails();
-      fetchMoveLearnLevels();
     }
-  }, [pokemonData.moves, pokemonData.name]);
-
-  const movesToShow = showAllMoves
-    ? pokemonData.moves
-    : pokemonData.moves.slice(0, 10);
-
-  const toggleFlip = (moveName) => {
-    setFlippedMoves((prev) =>
-      prev.includes(moveName)
-        ? prev.filter((name) => name !== moveName)
-        : [...prev, moveName]
-    );
-  };
+  }, [pokemonData.moves]);
 
   return (
     <div className="pokemon-details">
@@ -135,65 +96,36 @@ const PokemonDetailsTable = ({ pokemonData }) => {
         </div>
       </div>
 
-      <h3>Movimientos:</h3>
-      <div className="move-grid">
-        {movesToShow.map((move) => {
-          const moveName = move.move.name;
-          const details = moveDetails[moveName];
-          const level = moveLearnLevels[moveName] || "Desconocido";
+      <div>
+        <h3>Movimientos:</h3>
+        <div className="moves-table-container">
+          <table className="moves-table">
+            <thead>
+              <tr>
+                <th>Movimiento</th>
+                <th>Daño</th>
+                <th>Tipo</th>
+                <th>Precisión</th>
+              </tr>
+            </thead>
+            <tbody>
+              {pokemonData.moves.map((move) => {
+                const moveName = move.move.name;
+                const details = moveDetails[moveName] || {};
 
-          return (
-            <div
-              className={`move-item ${
-                flippedMoves.includes(moveName) ? "flipped" : ""
-              }`}
-              key={moveName}
-              onClick={() => toggleFlip(moveName)}
-            >
-              <div className="move-card">
-                <div className="move-front">
-                  <strong>{moveName.replace("-", " ").toUpperCase()}</strong>
-                  <div>
-                    {details &&
-                      details.damage &&
-                      details.damage !== "Desconocido" && (
-                        <div>Daño: {details.damage}</div>
-                      )}
-                  </div>
-
-                  <div>
-                    {details &&
-                      details.type &&
-                      details.type !== "Desconocido" && (
-                        <div>Tipo: {details.type}</div>
-                      )}
-                  </div>
-
-                  <div>
-                    {details &&
-                      details.accuracy &&
-                      details.accuracy !== "Desconocido" && (
-                        <div>Precisión: {details.accuracy}</div>
-                      )}
-                  </div>
-                </div>
-
-                <div className="move-back">
-                  <strong>{moveName.replace("-", " ").toUpperCase()}</strong>
-                  <div>Detalles adicionales</div>
-                </div>
-              </div>
-            </div>
-          );
-        })}
+                return (
+                  <tr key={moveName}>
+                    <td>{moveName.replace("-", " ").toUpperCase()}</td>
+                    <td>{details.damage || "Desconocido"}</td>
+                    <td>{details.type || "Desconocido"}</td>
+                    <td>{details.accuracy || "Desconocido"}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
-
-      <button
-        className="move-toggle-button"
-        onClick={() => setShowAllMoves(!showAllMoves)}
-      >
-        {showAllMoves ? "Ver menos" : "Ver más movimientos"}
-      </button>
     </div>
   );
 };

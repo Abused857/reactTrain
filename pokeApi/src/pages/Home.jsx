@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import usePokemonByName from '../hooks/usePokemonByName'; // Hook para obtener el Pokémon por nombre
 import Searcher from '../components/home/Searcher'; // El buscador
 import PokemonDetailsTable from '../components/home/PokemonDetailsTable'; // Importamos el componente de la tabla
+import psyduckQuestion from '../assets/images/psyduckQuestion2.png';
+import "./css/home.css";
 
 const Home = () => {
   const [pokemonName, setPokemonName] = useState(''); // Estado para el nombre del Pokémon
@@ -20,11 +22,11 @@ const Home = () => {
       
       <Searcher onSearch={handleSearch} />
 
-      
+
       {pokemonName && !loading && !error && pokemonData ? (
         <PokemonDetailsTable pokemonData={pokemonData} />
       ) : (
-        pokemonName && !loading && error && <p>Pokémon no encontrado</p>
+        pokemonName && !loading && error && <img className = "psyduck-question" src={psyduckQuestion} alt="Error - Psyduck confused" />
       )}
     </div>
   );
